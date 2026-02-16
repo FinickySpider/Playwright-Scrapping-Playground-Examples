@@ -46,6 +46,32 @@
             opacity: 0.9;
         }
 
+        .page-nav {
+            background: #2d2d2d;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .page-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .page-nav a:hover {
+            background: #667eea;
+        }
+
+        .page-nav a.active {
+            background: #667eea;
+        }
+
         nav {
             background: #f8f9fa;
             padding: 20px;
