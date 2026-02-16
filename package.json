@@ -1,0 +1,16 @@
+{
+  "name": "web-scraper-playground",
+  "version": "1.0.0",
+  "description": "A beginner-friendly web scraping project using Playwright",
+  "type": "module",
+  "scripts": {
+    "scrape": "node scrape.js",
+    "scrape:headlines": "node examples/scrape-headlines.js",
+    "scrape:links": "node examples/scrape-links.js",
+    "scrape:images": "node examples/scrape-images.js",
+    "scrape:screenshot": "node examples/take-screenshot.js"
+  },
+  "dependencies": {
+    "playwright": "^1.50.0"
+  }
+}
