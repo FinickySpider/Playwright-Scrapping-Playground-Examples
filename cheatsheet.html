@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright Cheat Sheet - Web Scraper Playground</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        .page-nav {
+            background: #2d2d2d;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .page-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .page-nav a:hover {
+            background: #667eea;
+        }
+
+        .page-nav a.active {
+            background: #667eea;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 2px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin: 30px 0 15px;
+        }
+
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .tip {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip::before {
+            content: "💡 ";
+            font-weight: bold;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #856404;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning::before {
+            content: "⚠️ ";
+            font-weight: bold;
+        }
+
+        .dos-donts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .do, .dont {
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .do {
+            background: #d4edda;
+            border-left: 4px solid #155724;
+        }
+
+        .do h4::before {
+            content: "✅ ";
+        }
+
+        .dont {
+            background: #f8d7da;
+            border-left: 4px solid #721c24;
+        }
+
+        .dont h4::before {
+            content: "❌ ";
+        }
+
+        .do h4, .dont h4 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .dos-donts {
+                grid-template-columns: 1fr;
+            }
+            table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Playwright Cheat Sheet</h1>
+            <p>Quick reference for all commands</p>
+        </header>
+
+        <div class="page-nav">
+            <a href="index.html">🏠 Home</a>
+            <a href="guide.html">📘 Guide</a>
+            <a href="quick-start.html">🚀 Quick Start</a>
+            <a href="learning-path.html">🗺️ Learning Path</a>
+            <a href="cheatsheet.html" class="active">📋 Cheat Sheet</a>
+            <a href="readme.html">📖 README</a>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#template">Template</a></li>
+                <li><a href="#navigation">Navigation</a></li>
+                <li><a href="#selectors">Selectors</a></li>
+                <li><a href="#getting-data">Getting Data</a></li>
+                <li><a href="#waiting">Waiting</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <li><a href="#patterns">Common Patterns</a></li>
+                <li><a href="#tips">Tips</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <section id="template">
+                <h2>Basic Template</h2>
+                <pre><code>import { chromium } from "playwright";
+
+async function scrape() {
+  const browser = await chromium.launch({ headless: false });
+  const page = await browser.newPage();
+  
+  await page.goto("YOUR-URL-HERE");
+  
+  // Your scraping code here
+  
+  await browser.close();
+}
+
+scrape();</code></pre>
+            </section>
+
+            <section id="navigation">
+                <h2>Navigation</h2>
+                
+                <div class="card">
+                    <h3>Go to Pages</h3>
+                    <pre><code>// Go to a page
+await page.goto("https://example.com");
+
+// Go to a page with custom timeout
+await page.goto("https://example.com", { timeout: 60000 });
+
+// Go back/forward
+await page.goBack();
+await page.goForward();
+
+// Reload
+await page.reload();</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Interact with Elements</h3>
+                    <pre><code>// Click something
+await page.click("button.submit");
+
+// Double click
+await page.dblclick("button");
+
+// Fill in a form
+await page.fill("input#email", "test@example.com");
+
+// Type text (slower, more realistic)
+await page.type("input", "Hello World");
+
+// Press a key
+await page.press("input", "Enter");
+
+// Check a checkbox
+await page.check("input[type='checkbox']");
+
+// Select from dropdown
+await page.selectOption("select", "value");</code></pre>
+                </div>
+            </section>
+
+            <section id="selectors">
+                <h2>Finding Elements (CSS Selectors)</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>What You Want</th>
+                            <th>Selector</th>
+                            <th>Example HTML</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>By class</td>
+                            <td><code>.classname</code></td>
+                            <td><code>&lt;div class="classname"&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>By ID</td>
+                            <td><code>#idname</code></td>
+                            <td><code>&lt;div id="idname"&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>By tag</td>
+                            <td><code>tagname</code></td>
+                            <td><code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>Multiple classes</td>
+                            <td><code>.class1.class2</code></td>
+                            <td><code>&lt;div class="class1 class2"&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>Child element</td>
+                            <td><code>.parent .child</code></td>
+                            <td>Any descendant</td>
+                        </tr>
+                        <tr>
+                            <td>Direct child</td>
+                            <td><code>.parent &gt; .child</code></td>
+                            <td>Immediate child only</td>
+                        </tr>
+                        <tr>
+                            <td>By attribute</td>
+                            <td><code>[href]</code></td>
+                            <td><code>&lt;a href="..."&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td>Specific attribute</td>
+                            <td><code>[href="/about"]</code></td>
+                            <td>Exact match</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    Right-click any element on a webpage and choose "Inspect" to see its HTML and find the right selector!
+                </div>
+            </section>
+
+            <section id="getting-data">
+                <h2>Getting Data</h2>
+                
+                <div class="card">
+                    <h3>Get Text from Elements</h3>
+                    <pre><code>// Get text from ONE element
+const text = await page.textContent("h1");
+
+// Get text from MANY elements
+const items = await page.$$eval("li", els => 
+  els.map(el => el.textContent)
+);
+
+// Get inner HTML
+const html = await page.innerHTML(".content");</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Get Attributes</h3>
+                    <pre><code>// Get an attribute (like href, src, class, etc.)
+const url = await page.getAttribute("a", "href");
+const imgSrc = await page.getAttribute("img", "src");
+
+// Get multiple attributes
+const links = await page.$$eval("a", anchors =>
+  anchors.map(a => ({
+    href: a.href,
+    text: a.textContent
+  }))
+);</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Complex Data Extraction</h3>
+                    <pre><code>// Get multiple pieces of data
+const products = await page.$$eval(".product", items => {
+  return items.map(item => ({
+    name: item.querySelector(".name")?.textContent,
+    price: item.querySelector(".price")?.textContent,
+    image: item.querySelector("img")?.src,
+  }));
+});
+
+// Check if element exists
+const exists = await page.locator(".element").count() > 0;
+
+// Get current URL
+const currentUrl = await page.url();
+
+// Get page title
+const title = await page.title();</code></pre>
+                </div>
+            </section>
+
+            <section id="waiting">
+                <h2>Waiting for Things</h2>
+                
+                <div class="card">
+                    <pre><code>// Wait for an element to appear
+await page.waitForSelector(".results");
+
+// Wait for page to load
+await page.waitForLoadState("domcontentloaded");
+await page.waitForLoadState("networkidle"); // wait for all network requests
+
+// Wait a specific time (milliseconds)
+await page.waitForTimeout(3000); // 3 seconds
+
+// Wait for navigation
+await page.waitForNavigation();
+
+// Wait for element to be visible
+await page.waitForSelector(".element", { state: "visible" });
+
+// Wait for element to be hidden
+await page.waitForSelector(".element", { state: "hidden" });</code></pre>
+                </div>
+
+                <div class="warning">
+                    Use timeouts sparingly! It's better to wait for specific elements than arbitrary time periods.
+                </div>
+            </section>
+
+            <section id="screenshots">
+                <h2>Screenshots & PDFs</h2>
+                
+                <div class="card">
+                    <pre><code>// Take a screenshot
+await page.screenshot({ path: "screenshot.png" });
+
+// Full page screenshot
+await page.screenshot({ 
+  path: "full.png", 
+  fullPage: true 
+});
+
+// Screenshot of specific element
+await page.locator(".element").screenshot({ path: "element.png" });
+
+// Save as PDF
+await page.pdf({ path: "page.pdf" });
+
+// PDF with options
+await page.pdf({ 
+  path: "page.pdf",
+  format: "A4",
+  printBackground: true
+});</code></pre>
+                </div>
+            </section>
+
+            <section id="browser-options">
+                <h2>Browser Options</h2>
+                
+                <div class="card">
+                    <pre><code>// Visible browser (good for learning)
+const browser = await chromium.launch({ 
+  headless: false 
+});
+
+// Invisible browser (faster)
+const browser = await chromium.launch({ 
+  headless: true 
+});
+
+// Slow down actions (easier to watch)
+const browser = await chromium.launch({ 
+  headless: false,
+  slowMo: 1000 // 1 second delay between actions
+});
+
+// Custom window size
+const page = await browser.newPage();
+await page.setViewportSize({ width: 1920, height: 1080 });</code></pre>
+                </div>
+            </section>
+
+            <section id="patterns">
+                <h2>Common Patterns</h2>
+                
+                <div class="card">
+                    <h3>Pattern 1: Get All Links</h3>
+                    <pre><code>const links = await page.$$eval("a", anchors => 
+  anchors.map(a => ({
+    text: a.textContent,
+    url: a.href
+  }))
+);</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Pattern 2: Get All Images</h3>
+                    <pre><code>const images = await page.$$eval("img", imgs => 
+  imgs.map(img => ({
+    src: img.src,
+    alt: img.alt
+  }))
+);</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Pattern 3: Login to a Site</h3>
+                    <pre><code>await page.goto("https://example.com/login");
+await page.fill("#username", "myusername");
+await page.fill("#password", "mypassword");
+await page.click("button[type='submit']");
+await page.waitForNavigation();</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Pattern 4: Scroll to Load More</h3>
+                    <pre><code>// Scroll to bottom
+await page.evaluate(() => 
+  window.scrollTo(0, document.body.scrollHeight)
+);
+
+// Wait for new content
+await page.waitForTimeout(2000);</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Pattern 5: Handle Popups</h3>
+                    <pre><code>// Click something that opens a new tab
+const [newPage] = await Promise.all([
+  page.waitForEvent('popup'),
+  page.click('a[target="_blank"]')
+]);
+
+// Work with the new page
+await newPage.waitForLoadState();
+const text = await newPage.textContent('h1');</code></pre>
+                </div>
+            </section>
+
+            <section id="error-handling">
+                <h2>Error Handling</h2>
+                
+                <div class="card">
+                    <pre><code>try {
+  await page.goto("https://example.com");
+  const data = await page.textContent(".selector");
+  console.log(data);
+} catch (error) {
+  console.error("Something went wrong:", error.message);
+  
+  if (error.message.includes("timeout")) {
+    console.log("Page took too long to load");
+  } else if (error.message.includes("Target closed")) {
+    console.log("Browser was closed");
+  }
+} finally {
+  await browser.close();
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="debugging">
+                <h2>Debugging Tips</h2>
+                
+                <div class="card">
+                    <pre><code>// Pause execution (opens inspector)
+await page.pause();
+
+// Print current URL
+console.log(await page.url());
+
+// Print page title
+console.log(await page.title());
+
+// Get the full HTML
+const html = await page.content();
+console.log(html);
+
+// Screenshot when something goes wrong
+try {
+  // ... your code
+} catch (error) {
+  await page.screenshot({ path: "error.png" });
+  throw error;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="tips">
+                <h2>Tips & Best Practices</h2>
+                
+                <div class="dos-donts">
+                    <div class="do">
+                        <h4>DO:</h4>
+                        <ul>
+                            <li>Use <code>headless: false</code> while learning</li>
+                            <li>Add waits for dynamic content</li>
+                            <li>Check if elements exist before accessing</li>
+                            <li>Use try/catch for error handling</li>
+                            <li>Be respectful - add delays between requests</li>
+                            <li>Test selectors in browser DevTools first</li>
+                        </ul>
+                    </div>
+
+                    <div class="dont">
+                        <h4>DON'T:</h4>
+                        <ul>
+                            <li>Scrape too fast (can get you blocked)</li>
+                            <li>Ignore robots.txt</li>
+                            <li>Hardcode credentials in scripts</li>
+                            <li>Forget to close the browser</li>
+                            <li>Assume elements will always be there</li>
+                            <li>Use excessive <code>waitForTimeout()</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Need More Help?</h2>
+                
+                <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                    <h3 style="color: white;">📚 Resources</h3>
+                    <ul style="margin-left: 30px; margin-top: 15px;">
+                        <li><a href="https://playwright.dev/docs/intro" target="_blank" style="color: white;">📘 Playwright Docs</a></li>
+                        <li><a href="guide.html" style="color: white;">🎓 Interactive Guide</a></li>
+                        <li><a href="learning-path.html" style="color: white;">🗺️ Learning Path</a></li>
+                        <li><a href="https://quotes.toscrape.com" target="_blank" style="color: white;">🌐 Practice Sites</a></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>🕷️ Web Scraper Playground</p>
+            <p>Happy Scraping! Learn, experiment, and build cool things.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
