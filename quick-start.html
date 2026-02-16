@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Start - Web Scraper Playground</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        .page-nav {
+            background: #2d2d2d;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .page-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .page-nav a:hover {
+            background: #667eea;
+        }
+
+        .page-nav a.active {
+            background: #667eea;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin: 30px 0 15px;
+        }
+
+        .step {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 15px;
+        }
+
+        .step h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .checklist {
+            margin: 30px 0;
+        }
+
+        .checklist-item {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: all 0.3s;
+        }
+
+        .checklist-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .checklist-item h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Quick Start Guide</h1>
+            <p>Get scraping in 5 minutes!</p>
+        </header>
+
+        <div class="page-nav">
+            <a href="index.html">🏠 Home</a>
+            <a href="guide.html">📘 Guide</a>
+            <a href="quick-start.html" class="active">🚀 Quick Start</a>
+            <a href="learning-path.html">🗺️ Learning Path</a>
+            <a href="cheatsheet.html">📋 Cheat Sheet</a>
+            <a href="readme.html">📖 README</a>
+        </div>
+
+        <div class="content">
+            <section>
+                <h2>Step 1: Setup (First Time Only)</h2>
+                
+                <div class="step">
+                    <h3>Windows Users</h3>
+                    <p>Double-click <code>setup.bat</code> in the project folder</p>
+                </div>
+
+                <div class="step">
+                    <h3>Mac/Linux Users</h3>
+                    <p>Open terminal and run:</p>
+                    <pre><code>npm install
+npx playwright install chromium</code></pre>
+                </div>
+
+                <div class="card">
+                    <p><strong>⏱️ Wait time:</strong> 2-3 minutes for everything to download and install.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Step 2: Run Your First Scraper</h2>
+                
+                <div class="card">
+                    <p>Open a terminal in this folder and run:</p>
+                    <pre><code>npm run beginner</code></pre>
+                    <p>A browser will open, visit a website, grab some text, and print it! 🎉</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Step 3: Try More Examples</h2>
+                
+                <div class="card">
+                    <h3>Scrape quotes from a practice website:</h3>
+                    <pre><code>npm run scrape</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Scrape news headlines:</h3>
+                    <pre><code>npm run scrape:headlines</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3>Use the config file (no coding!):</h3>
+                    <pre><code>npm run config-scrape</code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>Step 4: Learn More</h2>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <h3><span class="number">📖</span> Read the Full Guide</h3>
+                        <p>Double-click <code>START-HERE.bat</code> (Windows) or open <a href="guide.html">guide.html</a></p>
+                    </div>
+
+                    <div class="checklist-item">
+                        <h3><span class="number">⚙️</span> Customize Without Coding</h3>
+                        <p>Edit <code>config.json</code> to scrape any website without touching JavaScript</p>
+                    </div>
+
+                    <div class="checklist-item">
+                        <h3><span class="number">💻</span> Modify Example Scripts</h3>
+                        <p>Open any <code>.js</code> file and change the URL or selectors</p>
+                    </div>
+
+                    <div class="checklist-item">
+                        <h3><span class="number">📋</span> Use the Cheat Sheet</h3>
+                        <p>Check <a href="cheatsheet.html">cheatsheet.html</a> for detailed Playwright commands</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🚨 Need Help?</h2>
+                
+                <div class="card">
+                    <h3>"node is not recognized"</h3>
+                    <p>→ Install Node.js from <a href="https://nodejs.org" target="_blank">https://nodejs.org</a></p>
+                </div>
+
+                <div class="card">
+                    <h3>"Cannot find module"</h3>
+                    <p>→ Run <code>npm install</code></p>
+                </div>
+
+                <div class="card">
+                    <h3>"Browser not found"</h3>
+                    <p>→ Run <code>npx playwright install chromium</code></p>
+                </div>
+
+                <div class="card">
+                    <h3>Scraper returns empty results</h3>
+                    <p>→ Wrong selector! Right-click the element on the page and choose "Inspect" to find the correct one</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>🎯 What to Try Next</h2>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <h3>✅ 1. Run <code>npm run beginner</code></h3>
+                    </div>
+                    <div class="checklist-item">
+                        <h3>✅ 2. Run <code>npm run scrape</code></h3>
+                    </div>
+                    <div class="checklist-item">
+                        <h3>✅ 3. Edit <code>config.json</code> and run <code>npm run config-scrape</code></h3>
+                    </div>
+                    <div class="checklist-item">
+                        <h3>✅ 4. Open <code>scrape.js</code>, change the URL, and run it again</h3>
+                    </div>
+                    <div class="checklist-item">
+                        <h3>✅ 5. Open the <a href="guide.html">interactive guide</a></h3>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>🕷️ Web Scraper Playground</p>
+            <p>Happy Scraping! Learn, experiment, and build cool things.</p>
+        </footer>
+    </div>
+</body>
+</html>
