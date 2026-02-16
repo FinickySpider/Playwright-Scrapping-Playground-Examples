@@ -6,14 +6,24 @@ A beginner-friendly project for learning web scraping with **Playwright** and No
 
 **Windows Users:** Double-click `START-HERE.bat` to open the interactive guide in your browser!
 
-The interactive guide has:
-- 🎨 Beautiful, easy-to-read format
+The project includes **beautiful HTML guides** with:
+- 🎨 Beautiful, easy-to-read format with gradient backgrounds
 - 🎮 Interactive CSS selector builder
-- 📚 All examples with code snippets
-- 🚨 Troubleshooting help
-- 📖 Learning resources
+- 📚 All examples with syntax-highlighted code snippets
+- 🚨 Troubleshooting help with friendly error messages
+- 📖 Learning resources and external links
+- 🗺️ Mermaid flowcharts showing your learning journey
+- 🔗 Easy navigation between all guides
 
-**Or:** Run `npm run guide` to open it.
+**Available Guides:**
+- [`index.html`](index.html) - Home page with overview of everything
+- [`quick-start.html`](quick-start.html) - Get started in 5 minutes
+- [`guide.html`](guide.html) - Full interactive guide with examples
+- [`learning-path.html`](learning-path.html) - Visual roadmap with Mermaid diagrams
+- [`cheatsheet.html`](cheatsheet.html) - Quick reference for all commands
+- [`readme.html`](readme.html) - This README in beautiful HTML format
+
+**Or:** Run `npm start` to open the home page.
 
 ---
 

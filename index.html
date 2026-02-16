@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraper Playground - Home</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 1s;
+        }
+
+        header p {
+            font-size: 1.5em;
+            opacity: 0.9;
+            animation: fadeInUp 1s;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin: 40px 0 30px 0;
+            text-align: center;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 60px;
+        }
+
+        .hero h2 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .page-card {
+            background: white;
+            border: 3px solid #e9ecef;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .page-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .page-card .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .page-card h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .page-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .page-card .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-top: 15px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature .emoji {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .feature h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .quick-start {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .quick-start h3 {
+            color: #764ba2;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .steps-horizontal {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .step-simple {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-simple .number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .mermaid {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            .content {
+                padding: 30px 20px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🕷️ Web Scraper Playground</h1>
+            <p>Learn web scraping with Playwright - No experience needed!</p>
+        </header>
+
+        <div class="content">
+            <div class="hero">
+                <h2>🎯 Start Your Web Scraping Journey</h2>
+                <p>A complete, beginner-friendly project to learn web scraping using Playwright and Node.js</p>
+                <div class="cta-buttons">
+                    <a href="quick-start.html" class="cta-button">🚀 Quick Start (5 min)</a>
+                    <a href="guide.html" class="cta-button secondary">📘 Open Interactive Guide</a>
+                </div>
+            </div>
+
+            <section>
+                <h2>📚 Choose Your Path</h2>
+                <p style="text-align: center; margin-bottom: 30px; color: #666;">Pick the guide that matches your experience level</p>
+                
+                <div class="page-grid">
+                    <a href="quick-start.html" class="page-card">
+                        <div class="icon">🚀</div>
+                        <h3>Quick Start</h3>
+                        <p>Get up and running in 5 minutes. Perfect if you want to start scraping immediately!</p>
+                        <span class="tag">5 min read</span>
+                    </a>
+
+                    <a href="guide.html" class="page-card">
+                        <div class="icon">📘</div>
+                        <h3>Interactive Guide</h3>
+                        <p>Beautiful, interactive guide with live examples and a CSS selector builder.</p>
+                        <span class="tag">Most Popular</span>
+                    </a>
+
+                    <a href="learning-path.html" class="page-card">
+                        <div class="icon">🗺️</div>
+                        <h3>Learning Path</h3>
+                        <p>Visual roadmap with Mermaid flowcharts showing your journey from beginner to pro.</p>
+                        <span class="tag">Visual Learners</span>
+                    </a>
+
+                    <a href="cheatsheet.html" class="page-card">
+                        <div class="icon">📋</div>
+                        <h3>Cheat Sheet</h3>
+                        <p>Quick reference for all Playwright commands, patterns, and best practices.</p>
+                        <span class="tag">Reference</span>
+                    </a>
+
+                    <a href="readme.html" class="page-card">
+                        <div class="icon">📖</div>
+                        <h3>Full README</h3>
+                        <p>Complete documentation covering everything in detail with troubleshooting tips.</p>
+                        <span class="tag">Comprehensive</span>
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <h2>✨ What Makes This Project Special?</h2>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="emoji">🎓</div>
+                        <h4>Ultra-Beginner Friendly</h4>
+                        <p>Starts with a 20-line script. Every line explained in plain English.</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">⚙️</div>
+                        <h4>No-Code Option</h4>
+                        <p>Edit a JSON file to scrape any website - zero JavaScript knowledge required!</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">🎨</div>
+                        <h4>Beautiful Guides</h4>
+                        <p>Interactive HTML guides with syntax highlighting and live examples.</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">🛠️</div>
+                        <h4>One-Click Setup</h4>
+                        <p>Double-click setup.bat and you're ready to go. Everything automated!</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">📚</div>
+                        <h4>5+ Ready Examples</h4>
+                        <p>Scrape quotes, headlines, links, images, and more. Copy and customize!</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">🚨</div>
+                        <h4>Friendly Errors</h4>
+                        <p>Helpful error messages with tips when something goes wrong.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>⚡ Get Started in 3 Steps</h2>
+                
+                <div class="quick-start">
+                    <div class="steps-horizontal">
+                        <div class="step-simple">
+                            <div class="number">1</div>
+                            <h4>Setup</h4>
+                            <p>Double-click <code>setup.bat</code></p>
+                        </div>
+
+                        <div class="step-simple">
+                            <div class="number">2</div>
+                            <h4>Run</h4>
+                            <p><code>npm run beginner</code></p>
+                        </div>
+
+                        <div class="step-simple">
+                            <div class="number">3</div>
+                            <h4>Watch</h4>
+                            <p>Browser opens & scrapes!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🎯 Your Learning Journey</h2>
+                
+                <div class="mermaid">
+graph LR
+    A[🏠 You Are Here] --> B[🚀 Quick Start]
+    B --> C[🎓 Run npm run beginner]
+    C --> D[⚙️ Try Config-Based Scraper]
+    D --> E[📚 Explore Examples]
+    E --> F[🛠️ Build Your Own]
+    F --> G[🎉 Web Scraping Master!]
+    
+    style A fill:#667eea,stroke:#333,stroke-width:3px,color:#fff
+    style G fill:#FFD700,stroke:#333,stroke-width:3px,color:#333
+                </div>
+            </section>
+
+            <section>
+                <h2>📦 What's Included?</h2>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="emoji">📁</div>
+                        <h4>Example Scripts</h4>
+                        <p>beginner.js, scrape.js, config-scraper.js, and 4 more examples</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">🌐</div>
+                        <h4>HTML Guides</h4>
+                        <p>5 interactive HTML pages with beautiful styling and navigation</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">⚙️</div>
+                        <h4>Config Files</h4>
+                        <p>config.json, .env.example, package.json all set up for you</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">🖥️</div>
+                        <h4>Automation Scripts</h4>
+                        <p>setup.bat, START-HERE.bat for one-click installation</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">📝</div>
+                        <h4>Documentation</h4>
+                        <p>README, Quick Start, Cheat Sheet, Learning Path guides</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="emoji">🎨</div>
+                        <h4>Mermaid Diagrams</h4>
+                        <p>Visual flowcharts showing how everything works</p>
+                    </div>
+                </div>
+            </section>
+
+            <section style="text-align: center; margin: 60px 0;">
+                <h2>🎬 Ready to Start?</h2>
+                <p style="font-size: 1.2em; color: #666; margin: 20px 0;">Choose your starting point below</p>
+                
+                <div class="cta-buttons">
+                    <a href="quick-start.html" class="cta-button">🚀 5-Minute Quick Start</a>
+                    <a href="guide.html" class="cta-button secondary">📘 Interactive Guide</a>
+                    <a href="learning-path.html" class="cta-button secondary">🗺️ See Learning Path</a>
+                </div>
+            </section>
+
+            <section>
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 15px;">
+                    <h3 style="color: white; text-align: center; font-size: 2em; margin-bottom: 20px;">💡 Pro Tips</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div>
+                            <h4 style="color: white; margin-bottom: 10px;">👀 Watch It Happen</h4>
+                            <p>Use <code style="background: rgba(0,0,0,0.3);">headless: false</code> to see the browser in action!</p>
+                        </div>
+                        <div>
+                            <h4 style="color: white; margin-bottom: 10px;">🎯 Practice First</h4>
+                            <p>Try quotes.toscrape.com before scraping real websites</p>
+                        </div>
+                        <div>
+                            <h4 style="color: white; margin-bottom: 10px;">🔍 Use DevTools</h4>
+                            <p>Press F12 in your browser to find CSS selectors easily</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p style="font-size: 1.5em; margin-bottom: 15px;">🕷️ Web Scraper Playground</p>
+            <p>Happy Scraping! Learn, experiment, and build cool things.</p>
+            <p style="margin-top: 20px; opacity: 0.7;">All guides available in both Markdown and beautiful HTML formats</p>
+        </footer>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>

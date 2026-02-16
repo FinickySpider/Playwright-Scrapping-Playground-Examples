@@ -11,6 +11,7 @@
     "scrape:links": "node examples/scrape-links.js",
     "scrape:images": "node examples/scrape-images.js",
     "scrape:screenshot": "node examples/take-screenshot.js",
+    "start": "start index.html",
     "guide": "start guide.html"
   },
   "dependencies": {

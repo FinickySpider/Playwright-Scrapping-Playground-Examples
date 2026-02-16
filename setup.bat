@@ -53,7 +53,11 @@ echo ========================================
 echo.
 echo You're ready to start scraping!
 echo.
-echo Try running:  npm run scrape
-echo Or open:      npm run guide
+echo Quick Commands:
+echo   npm run beginner    - Your first scraper
+echo   npm start           - Open web guides
+echo   npm run scrape      - Example scraper
+echo.
+echo Or double-click START-HERE.bat
 echo.
 pause
