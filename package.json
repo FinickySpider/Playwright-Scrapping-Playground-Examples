@@ -4,11 +4,14 @@
   "description": "A beginner-friendly web scraping project using Playwright",
   "type": "module",
   "scripts": {
+    "beginner": "node beginner.js",
+    "config-scrape": "node config-scraper.js",
     "scrape": "node scrape.js",
     "scrape:headlines": "node examples/scrape-headlines.js",
     "scrape:links": "node examples/scrape-links.js",
     "scrape:images": "node examples/scrape-images.js",
-    "scrape:screenshot": "node examples/take-screenshot.js"
+    "scrape:screenshot": "node examples/take-screenshot.js",
+    "guide": "start guide.html"
   },
   "dependencies": {
     "playwright": "^1.50.0"

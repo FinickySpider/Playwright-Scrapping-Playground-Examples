@@ -28,6 +28,7 @@ screenshots/
 *.jpeg
 *.gif
 *.mp4
+results.json
 
 # Cache
 .cache/

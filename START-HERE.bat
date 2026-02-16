@@ -1,0 +1,3 @@
+@echo off
+echo Opening the Interactive Guide...
+start guide.html

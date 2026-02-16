@@ -1,0 +1,11 @@
+{
+  "url": "https://quotes.toscrape.com",
+  "showBrowser": true,
+  "selectors": {
+    "quotes": ".quote .text",
+    "authors": ".quote .author"
+  },
+  "waitTime": 2000,
+  "screenshot": false,
+  "screenshotPath": "screenshot.png"
+}
